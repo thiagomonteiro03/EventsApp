@@ -66,7 +66,7 @@
                 android:layout_alignParentBottom="true"
                 android:padding="@dimen/low_margin"
                 android:textColor="#FFFFFF"
-                android:text='@{Util.getDateFormat(event.date?? "")}' />
+                android:text='@{Util.getDateFormat(event.date,@string/date_hour_minute_format)}' />
 
             <TextView
                 android:id="@+id/event_price"
@@ -77,7 +77,7 @@
                 android:layout_alignParentBottom="true"
                 android:textColor="#FFFFFF"
                 android:padding="@dimen/low_margin"
-                android:text='@{Util.getRealCurrency(event.price?? "")}' />
+                android:text='@{Util.getRealCurrency(event.price)}' />
         </RelativeLayout>
     </RelativeLayout>
 

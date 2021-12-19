@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eventssicredi.R
 import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
+import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.ui.eventFragment.EventViewModel
 import java.util.*
 
 class EventListFragment : Fragment() {
@@ -38,8 +40,13 @@ class EventListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EventListViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(
+            this,
+            EventListViewModel.EventListViewModelFactory(EventRepository()))[EventListViewModel::class.java]
+
+        viewModel.events.observe(viewLifecycleOwner, {
+            eventList = viewModel.events.value!!
+        })
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -51,3 +58,5 @@ class EventListFragment : Fragment() {
     }
 
 }
+
+class EventListViewModelFactory()

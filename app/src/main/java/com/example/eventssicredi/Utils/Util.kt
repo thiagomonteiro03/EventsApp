@@ -3,9 +3,11 @@ package com.example.eventssicredi.Utils
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 open class Util {
 
@@ -13,9 +15,10 @@ open class Util {
 
         @RequiresApi(Build.VERSION_CODES.O)
         @JvmStatic
-        fun getDateFormat(date : LocalDateTime?, pattern: String): String {
-            val formatter = DateTimeFormatter.ofPattern(pattern)
-            return date?.format(formatter)?: ""
+        fun getDateFormat(time : Long?, pattern: String): String {
+            val date = time?.let { Date(it) } ?: return ""
+            val format = SimpleDateFormat(pattern)
+            return format.format(date) ?: ""
         }
 
         @JvmStatic
@@ -34,9 +37,9 @@ open class Util {
         }
 
         @JvmStatic
-        fun getRealCurrency(valor: Double): String {
+        fun getRealCurrency(valor: Double?): String {
             val nf: NumberFormat = NumberFormat.getCurrencyInstance()
-            return nf.format(valor)
+            return nf.format(valor) ?: ""
         }
     }
 }

@@ -4,4 +4,5 @@
     <string name="title_example">Texto 1</string>
     <string name="date_example">01/01/2001 00:00</string>
     <string name="price_example">0,00 R$</string>
+    <string name="date_hour_minute_format">dd/MM/yyyy HH:mm</string>
 </resources>
