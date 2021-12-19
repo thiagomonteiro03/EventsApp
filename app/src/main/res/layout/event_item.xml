@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.eventssicredi.Utils.Util" />
+        <variable
+            name="event"
+            type="com.example.eventssicredi.model.EventEntity" />
+        <variable
+            name="viewModel"
+            type="com.example.eventssicredi.ui.eventListFragment.EventListViewModel" />
+    </data>
+
+<androidx.cardview.widget.CardView
     android:id="@+id/fragment"
     android:layout_width="match_parent"
     android:layout_height="240dp"
@@ -39,10 +51,13 @@
                 android:id="@+id/event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/low_margin"
+                android:layout_marginStart="@dimen/low_margin"
+                android:layout_marginTop="@dimen/low_margin"
+                android:layout_marginEnd="@dimen/low_margin"
+                android:layout_marginBottom="@dimen/low_margin"
+                android:text='@{event.title?? ""}'
                 android:textColor="#FFFFFF"
-                android:textSize="25sp"
-                android:text="@string/title_example"/>
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/event_date"
@@ -51,7 +66,7 @@
                 android:layout_alignParentBottom="true"
                 android:padding="@dimen/low_margin"
                 android:textColor="#FFFFFF"
-                android:text="@string/date_example" />
+                android:text='@{Util.getDateFormat(event.date?? "")}' />
 
             <TextView
                 android:id="@+id/event_price"
@@ -62,8 +77,9 @@
                 android:layout_alignParentBottom="true"
                 android:textColor="#FFFFFF"
                 android:padding="@dimen/low_margin"
-                android:text="@string/price_example" />
+                android:text='@{Util.getRealCurrency(event.price?? "")}' />
         </RelativeLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+</layout>

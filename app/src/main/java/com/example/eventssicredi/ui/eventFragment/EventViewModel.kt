@@ -1,4 +1,4 @@
-package com.example.eventssicredi.ui.EventFragment
+package com.example.eventssicredi.ui.eventFragment
 
 import androidx.lifecycle.ViewModel
 
