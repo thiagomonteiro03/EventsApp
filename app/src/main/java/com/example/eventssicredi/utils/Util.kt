@@ -1,12 +1,10 @@
-package com.example.eventssicredi.Utils
+package com.example.eventssicredi.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 open class Util {

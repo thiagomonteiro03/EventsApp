@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.utils.navigateWithAnimations
+import kotlinx.android.synthetic.main.event_list_fragment.*
 
 class EventListFragment : Fragment() {
 
@@ -34,7 +37,18 @@ class EventListFragment : Fragment() {
         viewModel.loadEvents()
 
         viewModel.events.observe(viewLifecycleOwner, {
-            adapter?.setEvents(it)
+//            adapter?.setEvents(it)
+            val eventListAdapter = EventListAdapter(it, viewModel).apply {
+                onItemClick = { event ->
+                    val directions = EventListFragmentDirections.actionEventListFragmentToEventFragment()
+                    findNavController().navigateWithAnimations(directions)
+                }
+            }
+
+            with(recyclerBooks) {
+                setHasFixedSize(true)
+                adapter = eventListAdapter
+            }
         })
 
         viewModel.loading.observe(viewLifecycleOwner, {

@@ -9,11 +9,21 @@
         android:id="@+id/eventListFragment"
         android:name="com.example.eventssicredi.ui.eventListFragment.EventListFragment"
         android:label="@string/event_detail_title"
-        tools:layout="@layout/event_list_fragment" />
+        tools:layout="@layout/event_list_fragment" >
+        <action
+            android:id="@+id/action_eventListFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.example.eventssicredi.ui.eventFragment.EventFragment"
         android:label="@string/event_list_title"
-        tools:layout="@layout/event_detail_fragment" />
+        tools:layout="@layout/event_detail_fragment" >
+        <argument
+            android:name="event"
+            android:defaultValue="@null"
+            app:argType="com.example.eventssicredi.model.EventEntity"
+            app:nullable="true" />
+    </fragment>
 </navigation>

@@ -33,29 +33,19 @@ class EventListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val eventEntity = events[holder.adapterPosition]
         holder.bind(eventEntity,viewModel)
-        setOnClickListener(holder, eventEntity)
-    }
-
-    private fun setOnClickListener(
-        holder: ViewHolder,
-        eventEntity: EventEntity
-    ) {
         holder.itemView.setOnClickListener {
+            onItemClick?.invoke(eventEntity)
         }
     }
-
 }
 
 class ViewHolder constructor(val binding: EventItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    var masterPropertyValue: String? = null
     fun bind(item: EventEntity, viewModel: EventListViewModel) {
         binding.event = item
         binding.viewModel = viewModel
     }
-
-    var isSelected = false
 
     companion object {
         fun from(parent: ViewGroup): ViewHolder {

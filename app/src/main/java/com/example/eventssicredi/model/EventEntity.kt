@@ -1,6 +1,9 @@
 package com.example.eventssicredi.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class EventEntity(     val date : Long,
                             val description: String,
                             val image: String,
@@ -8,4 +11,4 @@ data class EventEntity(     val date : Long,
                             val latitude : Double,
                             val price : Double,
                             val title : String,
-                            val id : String)
+                            val id : String) : Parcelable
