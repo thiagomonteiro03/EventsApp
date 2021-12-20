@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:transitionName="expand_transition"
+            app:profileImage='@{event.image}'
             tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
         <RelativeLayout

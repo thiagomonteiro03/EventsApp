@@ -1,21 +1,14 @@
 package com.example.eventssicredi.ui.eventListFragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.example.eventssicredi.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
-import com.example.eventssicredi.ui.eventFragment.EventViewModel
-import okhttp3.internal.notifyAll
-import java.util.*
-import kotlin.collections.ArrayList
 
 class EventListFragment : Fragment() {
 

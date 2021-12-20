@@ -1,9 +1,13 @@
 package com.example.eventssicredi.ui.eventListFragment
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
 import kotlinx.coroutines.CoroutineScope
@@ -31,6 +35,16 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
             }
             loading.value = false
             _events.value = eventList?: listOf()
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("profileImage")
+        fun loadImage(view: ImageView, imageUrl: String?) {
+            Glide.with(view.context)
+                .load(imageUrl).apply(RequestOptions().circleCrop())
+                .into(view)
         }
     }
 
