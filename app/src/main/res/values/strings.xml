@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">EventsSicredi</string>
     <string name="event_list_title">Lista de Eventos</string>
+    <string name="event_detail_title">Detalhe do Evento</string>
     <string name="title_example">Texto 1</string>
     <string name="date_example">01/01/2001 00:00</string>
     <string name="price_example">0,00 R$</string>
     <string name="date_hour_minute_format">dd/MM/yyyy HH:mm</string>
+    <string name="check_in_title">Faça o Check-in!</string>
+    <string name="name_title">Nome</string>
+    <string name="name_hint">Digite seu nome</string>
+    <string name="email_title">E-mail</string>
+    <string name="email_hint">Digite seu E-mail</string>
+    <string name="button_send_title">Enviar</string>
 </resources>

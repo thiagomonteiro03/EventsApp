@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="low_margin">8dp</dimen>
+    <dimen name="appbar_height">300dp</dimen>
+    <dimen name="high_margin">16dp</dimen>
+    <dimen name="drawable_view_height">100dp</dimen>
+    <dimen name="icon_margin">25dp</dimen>
+    <dimen name="image_icon_size">28dp</dimen>
+    <dimen name="peek_height">86dp</dimen>
 </resources>

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.eventssicredi.R
 
-class EventFragment : Fragment(R.layout.event_fragment) {
+class EventFragment : Fragment(R.layout.event_detail_fragment) {
 
     private lateinit var viewModel: EventViewModel
 
