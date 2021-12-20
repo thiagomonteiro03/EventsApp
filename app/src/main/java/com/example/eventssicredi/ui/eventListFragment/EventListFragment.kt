@@ -13,20 +13,15 @@ import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
 import com.example.eventssicredi.ui.eventFragment.EventViewModel
+import okhttp3.internal.notifyAll
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EventListFragment : Fragment() {
 
     private var adapter: EventListAdapter? = null
     private var binding: EventListFragmentBinding? = null
-    private var eventList = listOf(
-        EventEntity(0, "baby eu só consigo dormir com livros", "3", 32.0, 32.0, 32.0, "3", "3"),
-        EventEntity(0, "baby eu só consigo dormir com livros 2", "3", 32.0, 32.0, 32.0, "PODE FALA OQ SE TA AFIM", "3")
-    )
-
-    companion object {
-        fun newInstance() = EventListFragment()
-    }
+    private var eventList: ArrayList<EventEntity> = arrayListOf()
 
     private lateinit var viewModel: EventListViewModel
 
@@ -43,9 +38,18 @@ class EventListFragment : Fragment() {
         viewModel = ViewModelProvider(
             this,
             EventListViewModel.EventListViewModelFactory(EventRepository()))[EventListViewModel::class.java]
+        viewModel.loadEvents()
 
         viewModel.events.observe(viewLifecycleOwner, {
-            eventList = viewModel.events.value!!
+            adapter?.setEvents(it)
+        })
+
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it) {
+                binding!!.progressBarHome.visibility = View.VISIBLE
+            } else {
+                binding!!.progressBarHome.visibility = View.GONE
+            }
         })
     }
 
@@ -58,5 +62,3 @@ class EventListFragment : Fragment() {
     }
 
 }
-
-class EventListViewModelFactory()

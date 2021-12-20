@@ -1,5 +1,6 @@
 package com.example.eventssicredi.ui.eventListFragment
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 
 class EventListAdapter(
-    private val events: List<EventEntity>,
+    private var events: List<EventEntity>,
     private val viewModel: EventListViewModel,
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -19,6 +20,12 @@ class EventListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setEvents(events: List<EventEntity>) {
+        this.events = events
+        this.notifyDataSetChanged()
     }
 
     override fun getItemCount() = events.size
@@ -36,22 +43,6 @@ class EventListAdapter(
         holder.itemView.setOnClickListener {
         }
     }
-
-//    inner class EventListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//        private val textViewSubscriberName: TextView = itemView.name
-//        private val textViewSubscriberEmail: TextView = itemView.text_subscriber_email
-//
-//        fun bindView(entity: EventEntity){
-//            textViewSubscriberName.text = entity.name
-//            textViewSubscriberEmail.text = entity.email
-//
-//            itemView.setOnClickListener {
-//                onItemClick?.invoke(entity)
-//            }
-//        }
-//
-//    }
 
 }
 

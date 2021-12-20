@@ -17,12 +17,20 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
     val events : LiveData<List<EventEntity>>
     get() = _events
 
+    val loading = MutableLiveData<Boolean>()
+
     fun loadEvents() {
+        var eventList: List<EventEntity>? = null
+        loading.value = true
         CoroutineScope(Dispatchers.Main).launch {
-            val response = withContext(Dispatchers.Default) {
-                repository.getApiData()
+            val response = repository.getApiData()
+            withContext(Dispatchers.Default) {
+                if (response.isSuccessful){
+                    eventList = response.body() as List<EventEntity>?
+                }
             }
-            _events.value = response ?: listOf()
+            loading.value = false
+            _events.value = eventList?: listOf()
         }
     }
 
@@ -30,7 +38,7 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
         private val repository: EventRepository
     ) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            TODO("Not yet implemented")
+            return EventListViewModel(repository) as T
         }
     }
 
