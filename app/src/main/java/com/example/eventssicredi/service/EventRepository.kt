@@ -1,5 +1,6 @@
 package com.example.eventssicredi.service
 
+import com.example.eventssicredi.model.Checkin
 import com.example.eventssicredi.model.EventEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -18,4 +19,12 @@ class EventRepository {
             endpoint.getEvents()
         }
     }
+
+    suspend fun sendCheckin(userSend: Checkin): Response<Checkin> {
+        return withContext(Dispatchers.Default) {
+            val retrofit = RetrofitInitializer().buildService(RetrofitInterface::class.java)
+            retrofit.addCheckin(userSend)
+        }
+    }
+
 }

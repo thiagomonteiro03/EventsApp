@@ -1,6 +1,7 @@
 package com.example.eventssicredi.utils
 
 import android.os.Build
+import android.util.Patterns
 import androidx.annotation.RequiresApi
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -43,6 +44,11 @@ open class Util {
         fun getRealCurrency(valor: Double?): String {
             val nf: NumberFormat = NumberFormat.getCurrencyInstance()
             return nf.format(valor) ?: ""
+        }
+
+        @JvmStatic
+        fun validateEmailFormat(email: String): Boolean {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
     }
 }

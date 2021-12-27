@@ -2,10 +2,7 @@ package com.example.eventssicredi.ui.eventlistfragment
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.eventssicredi.model.EventEntity
@@ -26,7 +23,7 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
     fun loadEvents() {
         var eventList: List<EventEntity>? = null
         loading.value = true
-        CoroutineScope(Dispatchers.Main).launch {
+        viewModelScope.launch {
             val response = repository.getApiData()
             withContext(Dispatchers.Default) {
                 if (response.isSuccessful){
