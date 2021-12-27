@@ -1,4 +1,4 @@
-package com.example.eventssicredi.ui.eventListFragment
+package com.example.eventssicredi.ui.eventlistfragment
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

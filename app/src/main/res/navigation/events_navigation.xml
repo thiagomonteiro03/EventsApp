@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/eventListFragment"
-        android:name="com.example.eventssicredi.ui.eventListFragment.EventListFragment"
+        android:name="com.example.eventssicredi.ui.eventlistfragment.EventListFragment"
         android:label="@string/event_detail_title"
         tools:layout="@layout/event_list_fragment" >
         <action
@@ -17,12 +17,11 @@
 
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.example.eventssicredi.ui.eventFragment.EventFragment"
+        android:name="com.example.eventssicredi.ui.eventfragment.EventFragment"
         android:label="@string/event_list_title"
         tools:layout="@layout/event_detail_fragment" >
         <argument
             android:name="event"
-            android:defaultValue="@null"
             app:argType="com.example.eventssicredi.model.EventEntity"
             app:nullable="true" />
     </fragment>

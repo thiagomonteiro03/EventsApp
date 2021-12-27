@@ -1,4 +1,4 @@
-package com.example.eventssicredi.ui.eventListFragment
+package com.example.eventssicredi.ui.eventlistfragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
 import com.example.eventssicredi.utils.navigateWithAnimations
+import kotlinx.android.synthetic.main.event_detail_fragment.*
 import kotlinx.android.synthetic.main.event_list_fragment.*
 
 class EventListFragment : Fragment() {
@@ -37,10 +38,9 @@ class EventListFragment : Fragment() {
         viewModel.loadEvents()
 
         viewModel.events.observe(viewLifecycleOwner, {
-//            adapter?.setEvents(it)
             val eventListAdapter = EventListAdapter(it, viewModel).apply {
                 onItemClick = { event ->
-                    val directions = EventListFragmentDirections.actionEventListFragmentToEventFragment()
+                    val directions = EventListFragmentDirections.actionEventListFragmentToEventFragment(event)
                     findNavController().navigateWithAnimations(directions)
                 }
             }

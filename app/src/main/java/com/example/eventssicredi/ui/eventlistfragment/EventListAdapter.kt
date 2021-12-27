@@ -1,4 +1,4 @@
-package com.example.eventssicredi.ui.eventListFragment
+package com.example.eventssicredi.ui.eventlistfragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

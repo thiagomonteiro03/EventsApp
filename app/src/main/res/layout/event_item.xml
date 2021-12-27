@@ -10,7 +10,7 @@
             type="com.example.eventssicredi.model.EventEntity" />
         <variable
             name="viewModel"
-            type="com.example.eventssicredi.ui.eventListFragment.EventListViewModel" />
+            type="com.example.eventssicredi.ui.eventlistfragment.EventListViewModel" />
     </data>
 
 <androidx.cardview.widget.CardView
