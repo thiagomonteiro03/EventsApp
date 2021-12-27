@@ -40,10 +40,10 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
 
     companion object {
         @JvmStatic
-        @BindingAdapter("profileImage")
+        @BindingAdapter("listImage")
         fun loadImage(view: ImageView, imageUrl: String?) {
             Glide.with(view.context)
-                .load(imageUrl).apply(RequestOptions().circleCrop())
+                .load(imageUrl).apply(RequestOptions().centerInside())
                 .into(view)
         }
     }

@@ -11,7 +11,7 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EventViewModel::class.java)
+        viewModel = ViewModelProvider(this)[EventViewModel::class.java]
         // TODO: Use the ViewModel
     }
 

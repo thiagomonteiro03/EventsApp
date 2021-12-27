@@ -20,6 +20,11 @@ open class Util {
         }
 
         @JvmStatic
+        fun changeLinkToHttps(valor: String?): String {
+            return valor?.replace("http:", "https:") ?: ""
+        }
+
+        @JvmStatic
         fun getTimeFormat(time : LocalTime?): String {
             return time?.toString() ?: ""
         }
