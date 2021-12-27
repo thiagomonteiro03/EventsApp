@@ -83,7 +83,7 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
             val shareIntent = Intent().apply {
                 this.action = Intent.ACTION_SEND
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    this.putExtra(Intent.EXTRA_TEXT,binding?.event?.toString())
+                    this.putExtra(Intent.EXTRA_TEXT, viewModel.address.value + binding?.event?.toString())
                 } else {
                     this.putExtra(Intent.EXTRA_TEXT,binding?.event?.description)
                 }
