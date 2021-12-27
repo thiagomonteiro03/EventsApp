@@ -1,5 +1,7 @@
 package com.example.eventssicredi.ui.eventfragment
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,6 +69,19 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
             }
 
             if (userInfo != null) viewModel.sendCheckin(userInfo)
+        }
+
+        shareButton.setOnClickListener{
+            val shareIntent = Intent().apply {
+                this.action = Intent.ACTION_SEND
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    this.putExtra(Intent.EXTRA_TEXT,binding?.event?.toString())
+                } else {
+                    this.putExtra(Intent.EXTRA_TEXT,binding?.event?.description)
+                }
+                this.type = "text/plain"
+            }
+            startActivity(shareIntent)
         }
     }
 

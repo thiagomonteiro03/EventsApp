@@ -9,10 +9,8 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class EventViewModel(private val repository: EventRepository) : ViewModel() {
-    // TODO: Implement the ViewModel
 
     fun sendCheckin(userInfo: Checkin){
-
         viewModelScope.launch {
             val response : Response<Checkin> = repository.sendCheckin(userInfo)
             response.isSuccessful

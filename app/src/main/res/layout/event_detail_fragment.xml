@@ -70,6 +70,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+            android:id="@+id/ll_event_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -84,12 +85,25 @@
                     android:id="@+id/dateEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/high_margin"
+                    android:layout_margin="@dimen/low_margin"
                     android:text='@{Util.getDateFormat(event.date,@string/date_hour_minute_format)}'
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:drawableTint="@android:color/darker_gray"
                     app:drawableLeftCompat="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/locationEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/low_margin"
+                    android:text='@{"Rua João Alfredo, 483"}'
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:drawableTint="@android:color/darker_gray"
+                    app:drawableLeftCompat="@drawable/ic_location" />
 
                 <TextView
                     android:id="@+id/titleEvent"
@@ -137,7 +151,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/icon_margin"
         android:src="@drawable/ic_share"
-        android:tint="@color/white"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end|right"
         app:maxImageSize="@dimen/image_icon_size"/>
