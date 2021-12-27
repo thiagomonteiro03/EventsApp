@@ -14,5 +14,7 @@
 
     <string name="date_hour_minute_format">dd/MM/yyyy HH:mm</string>
     <string name="connection_error">Seu dispositivo está sem conexão à internet.</string>
+    <string name="subscriber_name_hint">Digite seu nome</string>
+    <string name="subscriber_email_hint">Digite seu e-mail</string>
 
 </resources>
