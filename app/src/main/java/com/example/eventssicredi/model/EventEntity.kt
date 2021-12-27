@@ -19,7 +19,7 @@ data class EventEntity(     val date : Long,
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun toString(): String {
-        return "\n ${Util.getDateFormat(date, "dd/MM/yyyy HH:mm")}\n $title\n" +
-                " ${Util.getRealCurrency(price)}\n $description"
+        return "\n\n ${Util.getDateFormat(date, "dd/MM/yyyy HH:mm")}\n\n $title\n\n" +
+                " ${Util.getRealCurrency(price)}\n\n $description"
     }
 }
