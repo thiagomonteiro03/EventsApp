@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="com.example.eventssicredi.utils.Util" />
@@ -12,7 +13,6 @@
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -95,15 +95,17 @@
 
                 <TextView
                     android:id="@+id/locationEvent"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/low_margin"
-                    android:text='@{"Rua João Alfredo, 483"}'
+                    android:text='@{viewModel.address}'
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:drawableTint="@android:color/darker_gray"
-                    app:drawableLeftCompat="@drawable/ic_location" />
+                    app:drawableLeftCompat="@drawable/ic_location"
+                    android:focusable="true" />
 
                 <TextView
                     android:id="@+id/titleEvent"

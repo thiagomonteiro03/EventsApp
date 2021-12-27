@@ -1,6 +1,7 @@
 package com.example.eventssicredi.ui.eventfragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,6 +46,13 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
         viewModel = ViewModelProvider(
             this,
             EventViewModel.EventViewModelFactory(sendService))[EventViewModel::class.java]
+        binding?.event?.let {
+            viewModel.loadAddress(requireContext(), it!!.latitude, it.longitude)
+        }
+
+        viewModel.address.observe(viewLifecycleOwner, {
+            binding?.viewModel = viewModel
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +91,17 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
             }
             startActivity(shareIntent)
         }
+
+        locationEvent.setOnClickListener {
+            binding?.event?.let {
+                val gmmIntentUri =
+                    Uri.parse("geo:0,0?q=${it.latitude},${it.longitude}(Google+${it.title})")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
+            }
+        }
+
     }
 
 }
