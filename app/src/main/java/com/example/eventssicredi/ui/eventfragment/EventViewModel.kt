@@ -5,8 +5,10 @@ import android.location.Address
 import android.location.Geocoder
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.eventssicredi.R
 import com.example.eventssicredi.model.Checkin
 import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.utils.Util
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
@@ -17,21 +19,26 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
     val address : LiveData<String>
         get() = _address
 
-    fun sendCheckin(userInfo: Checkin){
-        viewModelScope.launch {
-            val response : Response<Checkin> = repository.sendCheckin(userInfo)
-            response.isSuccessful
-//                        if (it?.id != null && Util.validateEmailFormat(email_send.text.toString())) {
-//                            Toast.makeText(requireContext(), R.string.check_in_sent_message, Toast.LENGTH_SHORT).show()
-//                            bottomSheetBehavior.isHideable = true
-//                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-//                        } else {
-//                            if (Util.validateEmailFormat(email_send.text.toString())){
-//                                Toast.makeText(requireContext(), R.string.check_in_error_message, Toast.LENGTH_SHORT).show()}
-//                            else Toast.makeText(requireContext(), R.string.check_email_error_message, Toast.LENGTH_SHORT).show()
-//                        }
-        }
+    private val _errorMessage = MutableLiveData<Int>()
+    val errorMessage : LiveData<Int>
+        get() = _errorMessage
 
+
+    fun sendCheckin(userInfo: Checkin){
+        if (Util.validateEmailFormat(userInfo.email))
+        viewModelScope.launch { checkinResponse(repository.sendCheckin(userInfo)) }
+        else _errorMessage.value = R.string.check_email_error_message
+    }
+
+    fun checkinResponse(response: Response<Checkin>){
+        when(response.raw().code){
+            200 -> _errorMessage.value = R.string.connection_success
+            400 -> _errorMessage.value = R.string.connection_error_400
+            401 -> _errorMessage.value = R.string.connection_error_401
+            403 -> _errorMessage.value = R.string.connection_error_403
+            500 -> _errorMessage.value = R.string.connection_error_500
+            503 -> _errorMessage.value = R.string.connection_error_503
+        }
     }
 
     fun loadAddress(context: Context, latitude : Double, longitude: Double){

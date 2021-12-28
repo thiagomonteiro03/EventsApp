@@ -13,11 +13,16 @@
     <string name="button_send_title">Enviar</string>
 
     <string name="date_hour_minute_format">dd/MM/yyyy HH:mm</string>
-    <string name="connection_error">Seu dispositivo está sem conexão à internet.</string>
     <string name="subscriber_name_hint">Digite seu nome</string>
     <string name="subscriber_email_hint">Digite seu e-mail</string>
-    <string name="check_in_sent_message">Check-in realizado com sucesso!</string>
-    <string name="check_in_error_message">Erro ao efetuar o envio.</string>
+
+    <string name="connection_success">Check-in realizado com sucesso!</string>
+    <string name="connection_error">Seu dispositivo está sem conexão à internet.</string>
     <string name="check_email_error_message">E-mail digitado incorretamente</string>
+    <string name="connection_error_400">Ocorreu um erro de conexão, erro 400.</string>
+    <string name="connection_error_401">Ocorreu um erro de conexão, erro 401.</string>
+    <string name="connection_error_403">Ocorreu um erro de conexão, erro 403.</string>
+    <string name="connection_error_500">Ocorreu um erro de conexão, erro 500.</string>
+    <string name="connection_error_503">Ocorreu um erro de conexão, erro 503.</string>
 
 </resources>

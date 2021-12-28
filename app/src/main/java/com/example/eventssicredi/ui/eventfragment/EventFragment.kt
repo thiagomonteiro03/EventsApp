@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -14,7 +15,9 @@ import com.example.eventssicredi.R
 import com.example.eventssicredi.databinding.EventDetailFragmentBinding
 import com.example.eventssicredi.model.Checkin
 import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.utils.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.bottom_sheet_checkin.*
 import kotlinx.android.synthetic.main.event_detail_fragment.*
 
@@ -52,6 +55,14 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
 
         viewModel.address.observe(viewLifecycleOwner, {
             binding?.viewModel = viewModel
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            if (it.equals(R.string.connection_success))
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            else
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
     }
 
@@ -100,6 +111,10 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
                 mapIntent.setPackage("com.google.android.apps.maps")
                 startActivity(mapIntent)
             }
+        }
+
+        bottomSheet.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
     }
