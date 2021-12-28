@@ -24,5 +24,6 @@
     <string name="connection_error_403">Ocorreu um erro de conexão, erro 403.</string>
     <string name="connection_error_500">Ocorreu um erro de conexão, erro 500.</string>
     <string name="connection_error_503">Ocorreu um erro de conexão, erro 503.</string>
+    <string name="share">Share</string>
 
 </resources>
