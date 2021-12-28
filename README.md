@@ -44,7 +44,12 @@ Aplicativo desenvolvido com base na arquitetura MVVM que é recomendada pela mai
 - [AndroidX](https://developer.android.com/jetpack/androidx?authuser=1)
 - [Parallax](https://blog.mindorks.com/parallax-effect-in-android)
 
+
+
+
 ## Preview
+
+
 
 ![eventPreviewGif1](https://user-images.githubusercontent.com/60589333/147594537-06d8c3fc-0361-44f2-b3e1-4fef8976d304.gif)
 ![eventPreviewGif2](https://user-images.githubusercontent.com/60589333/147594558-cbb39de6-912f-4d0d-bd39-81c1fdd2a0d1.gif)
