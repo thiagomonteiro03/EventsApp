@@ -26,18 +26,20 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
 
     fun sendCheckin(userInfo: Checkin){
         if (Util.validateEmailFormat(userInfo.email))
-        viewModelScope.launch { checkinResponse(repository.sendCheckin(userInfo)) }
+        viewModelScope.launch { handlingResponse(repository, userInfo) }
         else _errorMessage.value = R.string.check_email_error_message
     }
 
-    fun checkinResponse(response: Response<Checkin>){
-        when(response.raw().code){
-            200 -> _errorMessage.value = R.string.connection_success
-            400 -> _errorMessage.value = R.string.connection_error_400
-            401 -> _errorMessage.value = R.string.connection_error_401
-            403 -> _errorMessage.value = R.string.connection_error_403
-            500 -> _errorMessage.value = R.string.connection_error_500
-            503 -> _errorMessage.value = R.string.connection_error_503
+    suspend fun handlingResponse(repository: EventRepository, userInfo: Checkin){
+        repository.sendCheckin(userInfo).let {
+            when(it.raw().code){
+                200 -> _errorMessage.value = R.string.connection_success
+                400 -> _errorMessage.value = R.string.connection_error_400
+                401 -> _errorMessage.value = R.string.connection_error_401
+                403 -> _errorMessage.value = R.string.connection_error_403
+                500 -> _errorMessage.value = R.string.connection_error_500
+                503 -> _errorMessage.value = R.string.connection_error_503
+            }
         }
     }
 

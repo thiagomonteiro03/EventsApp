@@ -5,12 +5,10 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.eventssicredi.R
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class EventListViewModel(private val repository: EventRepository) : ViewModel() {
 
@@ -18,20 +16,39 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
     val events : LiveData<List<EventEntity>>
     get() = _events
 
+    private val _errorMessage = MutableLiveData<Int>()
+    val errorMessage : LiveData<Int>
+        get() = _errorMessage
+
     val loading = MutableLiveData<Boolean>()
 
     fun loadEvents() {
-        var eventList: List<EventEntity>? = null
         loading.value = true
         viewModelScope.launch {
-            val response = repository.getApiData()
-            withContext(Dispatchers.Default) {
-                if (response.isSuccessful){
-                    eventList = response.body() as List<EventEntity>?
+            handlingEvents(repository)
+        }
+    }
+
+    suspend fun handlingEvents(repository: EventRepository){
+        repository.getApiData().let {
+            var eventListApi: List<EventEntity>? = null
+            if (it.isSuccessful){
+                eventListApi = it.body() as List<EventEntity>?
+            } else{
+                when(it.raw().code){
+                    400 -> _errorMessage.value = R.string.connection_error_400
+                    401 -> _errorMessage.value = R.string.connection_error_401
+                    403 -> _errorMessage.value = R.string.connection_error_403
+                    500 -> _errorMessage.value = R.string.connection_error_500
+                    503 -> _errorMessage.value = R.string.connection_error_503
                 }
             }
+
+            if(!eventListApi.isNullOrEmpty()) {
+                _events.value = eventListApi!!
+            }
+
             loading.value = false
-            _events.value = eventList?: listOf()
         }
     }
 

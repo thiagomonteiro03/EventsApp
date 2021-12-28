@@ -15,6 +15,7 @@ import com.example.eventssicredi.databinding.EventListFragmentBinding
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
 import com.example.eventssicredi.utils.navigateWithAnimations
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.event_list_fragment.*
 
 class EventListFragment : Fragment() {
@@ -66,6 +67,10 @@ class EventListFragment : Fragment() {
             } else {
                 binding!!.progressBarHome.visibility = View.GONE
             }
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
         })
     }
 
