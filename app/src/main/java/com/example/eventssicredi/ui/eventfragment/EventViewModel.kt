@@ -8,39 +8,39 @@ import androidx.lifecycle.*
 import com.example.eventssicredi.R
 import com.example.eventssicredi.model.Checkin
 import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.service.RepositoryInterface
 import com.example.eventssicredi.utils.Util
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.util.*
 
-class EventViewModel(private val repository: EventRepository) : ViewModel() {
+class EventViewModel(private val repository: RepositoryInterface) : ViewModel() {
 
     private val _address = MutableLiveData<String>()
     val address : LiveData<String>
         get() = _address
 
-    private val _errorMessage = MutableLiveData<Int>()
-    val errorMessage : LiveData<Int>
-        get() = _errorMessage
+    private val _postMessage = MutableLiveData<Int>()
+    val postMessage : LiveData<Int>
+        get() = _postMessage
 
 
     fun sendCheckin(userInfo: Checkin){
-        if (Util.validateEmailFormat(userInfo.email))
+        if (Util.validateEmailFormat(userInfo.email)) {
         viewModelScope.launch { handlingResponse(userInfo) }
-        else _errorMessage.value = R.string.check_email_error_message
+        } else _postMessage.value = R.string.check_email_error_message
     }
 
     suspend fun handlingResponse(userInfo: Checkin){
-        repository.sendCheckin(userInfo).let {
-            when(it.raw().code){
-                200 -> _errorMessage.value = R.string.connection_success
-                400 -> _errorMessage.value = R.string.connection_error_400
-                401 -> _errorMessage.value = R.string.connection_error_401
-                403 -> _errorMessage.value = R.string.connection_error_403
-                500 -> _errorMessage.value = R.string.connection_error_500
-                503 -> _errorMessage.value = R.string.connection_error_503
+            repository.sendCheckin(userInfo).let {
+                when (it.raw().code) {
+                    200 -> _postMessage.value = R.string.connection_success
+                    400 -> _postMessage.value = R.string.connection_error_400
+                    401 -> _postMessage.value = R.string.connection_error_401
+                    403 -> _postMessage.value = R.string.connection_error_403
+                    500 -> _postMessage.value = R.string.connection_error_500
+                    503 -> _postMessage.value = R.string.connection_error_503
+                }
             }
-        }
     }
 
     fun loadAddress(context: Context, latitude : Double, longitude: Double){

@@ -15,9 +15,7 @@ import com.example.eventssicredi.R
 import com.example.eventssicredi.databinding.EventDetailFragmentBinding
 import com.example.eventssicredi.model.Checkin
 import com.example.eventssicredi.service.EventRepository
-import com.example.eventssicredi.utils.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.bottom_sheet_checkin.*
 import kotlinx.android.synthetic.main.event_detail_fragment.*
 
@@ -57,7 +55,7 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
             binding?.viewModel = viewModel
         })
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, {
+        viewModel.postMessage.observe(viewLifecycleOwner, {
             if (it.equals(R.string.connection_success))
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             else
