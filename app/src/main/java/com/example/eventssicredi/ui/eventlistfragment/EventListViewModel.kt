@@ -8,9 +8,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.eventssicredi.R
 import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.EventRepository
+import com.example.eventssicredi.service.RepositoryInterface
 import kotlinx.coroutines.launch
 
-class EventListViewModel(private val repository: EventRepository) : ViewModel() {
+class EventListViewModel(private val repository: RepositoryInterface) : ViewModel() {
 
     private val _events = MutableLiveData<List<EventEntity>>()
     val events : LiveData<List<EventEntity>>
@@ -24,12 +25,10 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
 
     fun loadEvents() {
         loading.value = true
-        viewModelScope.launch {
-            handlingEvents(repository)
-        }
+        viewModelScope.launch { handlingEvents() }
     }
 
-    suspend fun handlingEvents(repository: EventRepository){
+    suspend fun handlingEvents(){
         repository.getApiData().let {
             var eventListApi: List<EventEntity>? = null
             if (it.isSuccessful){

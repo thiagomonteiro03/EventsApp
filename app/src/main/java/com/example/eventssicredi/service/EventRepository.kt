@@ -9,9 +9,9 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class EventRepository {
+class EventRepository : RepositoryInterface{
 
-    suspend fun getApiData(): Response<List<EventEntity?>> {
+    override suspend fun getApiData(): Response<List<EventEntity?>> {
          return withContext(Dispatchers.Default) {
             val retrofitClient = RetrofitUtils
                 .getRetrofitInstance(RetrofitConstants.URL)
@@ -20,7 +20,7 @@ class EventRepository {
         }
     }
 
-    suspend fun sendCheckin(userSend: Checkin): Response<Checkin> {
+    override suspend fun sendCheckin(userSend: Checkin): Response<Checkin> {
         return withContext(Dispatchers.Default) {
             val retrofit = RetrofitInitializer().buildService(RetrofitInterface::class.java)
             retrofit.addCheckin(userSend)
