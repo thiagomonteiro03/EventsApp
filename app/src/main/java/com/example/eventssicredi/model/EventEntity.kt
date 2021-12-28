@@ -3,7 +3,6 @@ package com.example.eventssicredi.model
 import android.os.Build
 import android.os.Parcelable
 import androidx.annotation.RequiresApi
-import com.example.eventssicredi.R
 import com.example.eventssicredi.utils.Util
 import kotlinx.android.parcel.Parcelize
 

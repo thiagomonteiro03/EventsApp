@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.eventssicredi.R
 import com.example.eventssicredi.model.Checkin
-import com.example.eventssicredi.model.EventEntity
 import com.example.eventssicredi.service.RepositoryInterface
 import com.example.eventssicredi.ui.eventfragment.EventViewModel
 import com.nhaarman.mockitokotlin2.verify

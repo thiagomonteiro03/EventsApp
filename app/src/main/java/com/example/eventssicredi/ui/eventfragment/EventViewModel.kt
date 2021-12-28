@@ -32,13 +32,15 @@ class EventViewModel(private val repository: RepositoryInterface) : ViewModel() 
 
     suspend fun handlingResponse(userInfo: Checkin){
             repository.sendCheckin(userInfo).let {
-                when (it.raw().code) {
-                    200 -> _postMessage.value = R.string.connection_success
-                    400 -> _postMessage.value = R.string.connection_error_400
-                    401 -> _postMessage.value = R.string.connection_error_401
-                    403 -> _postMessage.value = R.string.connection_error_403
-                    500 -> _postMessage.value = R.string.connection_error_500
-                    503 -> _postMessage.value = R.string.connection_error_503
+                if(it.isSuccessful) _postMessage.value = R.string.connection_success
+                else {
+                    when (it.raw().code) {
+                        400 -> _postMessage.value = R.string.connection_error_400
+                        401 -> _postMessage.value = R.string.connection_error_401
+                        403 -> _postMessage.value = R.string.connection_error_403
+                        500 -> _postMessage.value = R.string.connection_error_500
+                        503 -> _postMessage.value = R.string.connection_error_503
+                    }
                 }
             }
     }

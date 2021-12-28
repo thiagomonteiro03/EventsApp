@@ -47,6 +47,42 @@ class EventListFragment : Fragment() {
             viewModel.loadEvents()
         }
 
+        setObservers()
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        binding?.recyclerBooks?.let {
+            this.adapter = EventListAdapter(eventList, viewModel)
+            it.adapter = this.adapter
+        } ?: throw AssertionError()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun loadItems(){
+        if(isInternetConnected(requireContext())){
+            viewModel.loadEvents()
+        } else {
+            binding?.clWifiOff?.visibility = View.VISIBLE
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun isInternetConnected(getApplicationContext: Context): Boolean {
+        var status = false
+        val cm =
+            getApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (cm != null) {
+            if (cm.activeNetwork != null && cm.getNetworkCapabilities(cm.activeNetwork) != null) {
+                // connected to the internet
+                status = true
+            }
+        }
+        return status
+    }
+
+    private fun setObservers(){
+
         viewModel.events.observe(viewLifecycleOwner, {
             val eventListAdapter = EventListAdapter(it, viewModel).apply {
                 onItemClick = { event ->
@@ -72,37 +108,7 @@ class EventListFragment : Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner, {
             Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
         })
-    }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        binding?.recyclerBooks?.let {
-            this.adapter = EventListAdapter(eventList, viewModel)
-            it.adapter = this.adapter
-        } ?: throw AssertionError()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun loadItems(){
-        if(isInternetConnected(requireContext())){
-            viewModel.loadEvents()
-        } else {
-            binding?.clWifiOff?.visibility = View.VISIBLE
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun isInternetConnected(getApplicationContext: Context): Boolean {
-        var status = false
-        val cm =
-            getApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (cm != null) {
-            if (cm.activeNetwork != null && cm.getNetworkCapabilities(cm.activeNetwork) != null) {
-                // connected to the internet
-                status = true
-            }
-        }
-        return status
     }
 
 }

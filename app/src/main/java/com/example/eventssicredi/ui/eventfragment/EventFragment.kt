@@ -51,17 +51,8 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
             viewModel.loadAddress(requireContext(), it!!.latitude, it.longitude)
         }
 
-        viewModel.address.observe(viewLifecycleOwner, {
-            binding?.viewModel = viewModel
-        })
+        setObservers()
 
-        viewModel.postMessage.observe(viewLifecycleOwner, {
-            if (it.equals(R.string.connection_success))
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            else
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,6 +66,23 @@ class EventFragment : Fragment(R.layout.event_detail_fragment) {
         bottomSheetBehavior.isHideable = false
 
         setViewListeners()
+    }
+
+    private fun setObservers(){
+
+        viewModel.address.observe(viewLifecycleOwner, {
+            binding?.viewModel = viewModel
+        })
+
+        viewModel.postMessage.observe(viewLifecycleOwner, {
+            if (it.equals(R.string.connection_success)) {
+                bottomSheetBehavior.isHideable = true
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+            else bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        })
+
     }
 
     private fun setViewListeners() {
